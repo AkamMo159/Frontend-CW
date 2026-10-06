@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title> Akrams Lesson Store</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+</head>
+
+<body>
+
+<div id="app">
+    <!-- Shopping Cart Button: Disabled when cart is empty -->
+    <div>
+      <button :disabled="cart.length === 0">
+        Cart ({{ cart.length }})
+      </button>
+    </div>
+
+<h1> Lessons Available </h1>
+
+<div v-for="lesson in lessons" :key="lesson.id">
+  <i :class="lesson.icon"></i>
+  <p>Subject: {{ lesson.subject }}</p>
+  <p>Location:{{ lesson.location }}</p>
+  <p>Price: {{ lesson.price }}</p>
+  <p>Spaces: {{ lesson.spaces }}</p>
+
+  <button
+   v-on:click="addToCart(lesson)"
+   :disabled="lesson.spaces === 0">
+    Add to Cart
+  </button>
+  <hr>
+</div>
+</div>
+
+<!-- Vue js -->
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            cart: [],
+            lessons: [
+                {
+                    id: 1,
+                    subject: 'English',
+                    Location: 'London',
+                    price: 50,
+                    spaces: 5,
+                },
+                {
+                    id: 2,
+                    subject: 'Religious Studies',
+                    Location: 'Manchester',
+                    price: 40,
+                    spaces: 5,
+                },
+                {
+                    id: 3,
+                    subject: 'Science',
+                    Location: 'Liverpool',
+                    price: 60,
+                    spaces: 5,
+
+                }
+            ]
+        },
+        methods: {
+            addToCart(lesson) {
+                if (lesson.spaces > 0) {
+                    this.cart.push(lesson);
+                    lesson.spaces--;
+                }
+            }
+        }
+    })
+</script>
+
+
