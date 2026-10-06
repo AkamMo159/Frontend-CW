@@ -34,6 +34,24 @@
 </div>
 </div>
 
+<div v-else>
+    <h1> Shopping cart</h1>
+
+    <div v-if="cart.length === 0">
+        <p>Your cart is empty.</p>
+    </div>
+
+    <!-- Display the items that are in the cart -->
+    <div v-for="(item,index) in cart" :key="index">
+        <p>Subject: {{ item.subject }}</p>
+        <p>Location: {{ item.location }}</p>
+        <p>Price: {{ item.price }}</p>
+        <button v-on:click="removeFromCart(item,index)">Remove</button>
+        <hr>
+    </div>
+    
+</div>
+
 <!-- Vue js -->
 <script>
     new Vue({
