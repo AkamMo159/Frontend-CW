@@ -11,11 +11,14 @@
 <div id="app">
     <!-- Shopping Cart Button: Disabled when cart is empty -->
     <div>
-      <button :disabled="cart.length === 0">
+      <button
+        v-on:click="showCart"
+      :disabled="cart.length === 0">
         Cart ({{ cart.length }})
       </button>
     </div>
 
+<div v-if="showLessons">
 <h1> Lessons Available </h1>
 
 <div v-for="lesson in lessons" :key="lesson.id">
@@ -66,6 +69,7 @@
          Checkout
     </button>
 </div>
+</div>
 
 <!-- Vue js -->
 <script>
@@ -74,6 +78,10 @@
         data: {
             showLessons: true, //determines which page is displayed
             cart: [],
+            order: {
+                name: '',
+                phone: ''
+            },
             lessons: [
                 {
                     id: 1,
@@ -111,10 +119,10 @@
                     lesson.spaces--;
                 }
             },
-            ShowCart() {
+            showCart() {
                 this.showLessons = !this.showLessons;
             },
-            removeItemFromCart(item, index){
+            removeFromCart(item, index){
                 this.cart.splice(index, 1);
                 item.spaces++;
                 if (this.cart.length === 0){
@@ -122,8 +130,8 @@
                 }
             },
 
-            Checkout(){
-                alert('ORder submitted successfully!');
+            submitCheckout(){
+                alert('Order submitted successfully!');
                 this.cart= [];
                 this.order.name= '';
                 this.order.phone= '';
@@ -133,4 +141,5 @@
         }
     })
 </script>
-
+</body>
+</html>
